@@ -1,0 +1,103 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on Anirudh Rath | dh00mk3tu</title>
+        <link>//localhost:1313/posts/</link>
+        <description>Recent content in Posts on Anirudh Rath | dh00mk3tu</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+        <lastBuildDate>Sun, 30 Jun 2024 18:53:06 +0530</lastBuildDate>
+        <atom:link href="//localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>N States</title>
+            <link>//localhost:1313/posts/n-states/</link>
+            <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
+            
+            <guid>//localhost:1313/posts/n-states/</guid>
+            <description>The Premise We&amp;rsquo;ve come a long way since we wrote the first line of software. The premise of building software has always been simple; automate or solve a problem.
+From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there&amp;rsquo;s one thing that has always remained constant while building software.
+States.
+A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory.</description>
+            <content type="html"><![CDATA[<h2 id="the-premise">The Premise</h2>
+<p>We&rsquo;ve come a long way since we wrote the first line of software. The premise of building software has always been simple; automate or solve a problem.</p>
+<p>From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there&rsquo;s one thing that has always remained constant while building software.</p>
+<p>States.</p>
+<p>A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory. This essentially means that the value of these variables represent the application&rsquo;s <code>state</code>  at the time of observation.</p>
+<p>The concept of states laid the foundation of modern software development and as the time progressed,  technologies came and went - the concept of states stayed with us, more or less the same.</p>
+<p>Fast forward to today, we have state managers that help us persist and maintain our application&rsquo;s state in a much more convinient and an abstracted way. The scope of this blog will involve <code>Pinia</code>.</p>
+<p>Pinia is a state manager for NUXT, and it functions the same way as Redux. We create a global store which can be consumed by the components that actually need that data at point of the application life cycle, and saves us from the prop-drilling hell.</p>
+<p>But I recently came across a really interesting issue which I had to resolve and I realized that maintaining states with a <code>store</code> isn&rsquo;t enough.</p>
+<p>There needs to be a structure on how we maintain these states, and this brought me to the following conclusion</p>
+<blockquote>
+<p><em>&lsquo;There needs to be an internal state handler, which will handle the states declared in my store&rsquo;</em></p>
+</blockquote>
+<h2 id="state-management">State Management</h2>
+<p>I love the concept of having a global store, which I can access from any where, and so far I haven&rsquo;t really had any problems with this architecture until on Thursday, June 27th 2024.</p>
+<h2 id="the-problem">The Problem</h2>
+<p>Consider the following component for an online food ordering website.</p>
+<p>I search for &lsquo;chicken wings&rsquo; in the search input and click search.</p>
+<p>I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself.</p>
+<p><img alt="Component Wireframe" src="/n-states/1.png"></p>
+<p>Here, we will make API calls to each source to request data for the search query when the user clicks the <code>search</code> button.</p>
+<p>Lets understand the same with a diagram to register this as well.</p>
+<p><img alt="alt text" src="/n-states/2.png"></p>
+<p>This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component.</p>
+<h3 id="the-internal-states">The Internal States</h3>
+<p>Let us understand the possible states we should/can handle to make the user experience better</p>
+<h4 id="loading-state">Loading State</h4>
+<p>The first thing we&rsquo;d like to implement is a loader i.e. whenever there is an API call, and new data is being fetched - we want the user to see a loader.</p>
+<h4 id="success-state">Success State</h4>
+<p>Once the data has been fetched, we&rsquo;d like to show that to the user. For the sake of simplicity we will assume that that the reponse from the API is a JSON object that contains just two strings, which is the price of chicken wings from this particular source and a name.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JSON" data-lang="JSON"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">name:&#39;Chicken</span> <span style="color:#960050;background-color:#1e0010">Wings&#39;,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">price:</span> <span style="color:#960050;background-color:#1e0010">&#39;$5&#39;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="failed-state">Failed State</h4>
+<p>Since we&rsquo;re handling a success state, it is obvious that we need to handle a failed state as well.</p>
+<p>We&rsquo;re making an network request to an external source, and it is possible that the the request might break in the future or not return anything at all.</p>
+<p>So in a nutshell we have to maintain three states:</p>
+<ul>
+<li>Loading</li>
+<li>Success</li>
+<li>Failed</li>
+</ul>
+<p>Pretty simple, so the general appraoch would be to create a boolean value called:</p>
+<p><code>isLoading</code></p>
+<p>Now understand that this boolean value defines the state of the entire component.</p>
+<p><img alt="isLoading state " src="/n-states/3.png"></p>
+<p>The general approach here would be to set isLoading to true whenever we request data from an API and once the fetch is complete, we set <code>isLoading</code> to false.</p>
+<p>If we have the data, we render it to the UI - this is our <code>success</code> state otherwise we show an error or don&rsquo;t show the card in our UI at all - this is our <code>failed</code> state.</p>
+<p>Fundamentally this will work, but the caveat here is that it will work as long as there in one source of data.</p>
+<p><em>This is our problem</em></p>
+<p>Let&rsquo;s dive a little deeper to understand why this is a problem.</p>
+<h3 id="the-ui">The UI</h3>
+<p>On the frontend we recieve an array of data which we parse into our component as props.</p>
+<p>Here&rsquo;s what the data that we are passing to our component looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">response</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;Chicken Wings&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;$5&#39;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;Chicken Wings Spicy&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;$10&#39;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><p>One the UI front, we will render the cards inside a for loop which runs for the length of the response of the array.</p>
+<p>Now look at the diagram below.</p>
+<p><img alt="Different Sources" src="/n-states/4.png"></p>
+<p>We will be making separate API calls to get the from these two sources, and each of these API calls will take their own time, and will return their own data.</p>
+<p>There is a possibility that source-1 might return some data in 2 seconds while source might not return data at all even after 10+ seconds.</p>
+<p>But from our current appraoch, <code>isLoading</code> state governs the entirety of the component.</p>
+<p>Each API call we make will update the same <code>isLoading</code> variable and, if any of the APIs take, let&rsquo;s say maximum of T amount of time, our component will be visible to us after that time even though we had data which we could show to the user from other sources.</p>
+<p>This leads to bad user experience.</p>
+<p>One might argue that we can simply make two different isLoading variables for each of the sources we are making a call.</p>
+<blockquote>
+<p>But if have <em><code>n</code></em> number of sources will we make <em><code>n</code></em> number of <code>isLoading</code> variables in our store to govern our differnent API calls?</p>
+</blockquote>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

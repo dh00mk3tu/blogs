@@ -5,16 +5,34 @@
     <loc>//localhost:1313/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
+    <loc>//localhost:1313/tags/api/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
+    <loc>//localhost:1313/tags/components/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
     <loc>//localhost:1313/posts/n-states/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
+    <loc>//localhost:1313/tags/nuxt/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
+    <loc>//localhost:1313/tags/pinia/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
     <loc>//localhost:1313/posts/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
+    <loc>//localhost:1313/tags/redux/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
+    <loc>//localhost:1313/tags/state-mangement/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
     <loc>//localhost:1313/tags/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/untagged/</loc>
+    <loc>//localhost:1313/tags/typescript/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
     <loc>//localhost:1313/blog/</loc>

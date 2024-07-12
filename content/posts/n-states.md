@@ -19,7 +19,9 @@ We've come a long way since we wrote the first line of software. The premise of 
 
 From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there's one thing that has always remained constant while building software.
 
-States.
+```bash
+States
+```
 
 A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory. This essentially means that the value of these variables represent the application's `state`  at the time of observation. 
 
@@ -47,13 +49,13 @@ I search for 'chicken wings' in the search input and click search.
 
 I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself. 
 
-![Component Wireframe](../static/n-states/1.png)
+![Component Wireframe](./n-states/1.png)
 
 Here, we will make API calls to each source to request data for the search query when the user clicks the `search` button. 
 
 Lets understand the same with a diagram to register this as well. 
 
-![alt text](/static/n-states/2.png)
+![on clck event](./n-states/2.png)
 
 This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component. 
 
@@ -89,7 +91,7 @@ Pretty simple, so the general appraoch would be to create a boolean value called
 
 Now understand that this boolean value defines the state of the entire component. 
 
-![isLoading state ](/static/n-states/3.png)
+![isLoading state ](./n-states/3.png)
 
 The general approach here would be to set isLoading to true whenever we request data from an API and once the fetch is complete, we set `isLoading` to false.
 
@@ -124,7 +126,7 @@ One the UI front, we will render the cards inside a for loop which runs for the 
 
 Now look at the diagram below. 
 
-![Different Sources](/static/n-states/4.png)
+![Different Sources](./n-states/4.png)
 
 We will be making separate API calls to get the from these two sources, and each of these API calls will take their own time, and will return their own data.
 

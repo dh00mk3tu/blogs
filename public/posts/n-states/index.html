@@ -10,7 +10,7 @@
 From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there&amp;rsquo;s one thing that has always remained constant while building software.
 States.
 A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory." />
-<meta name="keywords" content="homepage, blog, TypeScript, State Mangement, Redux, NUXT, Pinia, API, Components" />
+<meta name="keywords" content=", TypeScript, State Mangement, Redux, NUXT, Pinia, API, Components" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="//localhost:1313/posts/n-states/" />
@@ -189,10 +189,10 @@ A rudimentary definition of what a state is can be understood as the value of va
 <p>Consider the following component for an online food ordering website.</p>
 <p>I search for &lsquo;chicken wings&rsquo; in the search input and click search.</p>
 <p>I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself.</p>
-<p><img alt="Component Wireframe" src="/n-states/1.png"></p>
+<p><img alt="Component Wireframe" src="/posts/n-states/1.png"></p>
 <p>Here, we will make API calls to each source to request data for the search query when the user clicks the <code>search</code> button.</p>
 <p>Lets understand the same with a diagram to register this as well.</p>
-<p><img alt="alt text" src="/n-states/2.png"></p>
+<p><img alt="on clck event" src="/posts/n-states/2.png"></p>
 <p>This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component.</p>
 <h3 id="the-internal-states">The Internal States</h3>
 <p>Let us understand the possible states we should/can handle to make the user experience better</p>
@@ -216,7 +216,7 @@ A rudimentary definition of what a state is can be understood as the value of va
 <p>Pretty simple, so the general appraoch would be to create a boolean value called:</p>
 <p><code>isLoading</code></p>
 <p>Now understand that this boolean value defines the state of the entire component.</p>
-<p><img alt="isLoading state " src="/n-states/3.png"></p>
+<p><img alt="isLoading state " src="../../static/n-states/3.png"></p>
 <p>The general approach here would be to set isLoading to true whenever we request data from an API and once the fetch is complete, we set <code>isLoading</code> to false.</p>
 <p>If we have the data, we render it to the UI - this is our <code>success</code> state otherwise we show an error or don&rsquo;t show the card in our UI at all - this is our <code>failed</code> state.</p>
 <p>Fundamentally this will work, but the caveat here is that it will work as long as there in one source of data.</p>

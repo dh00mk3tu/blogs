@@ -233,7 +233,7 @@ States A rudimentary definition of what a state is can be understood as the valu
 </span></span><span style="display:flex;"><span>]
 </span></span></code></pre></div><p>One the UI front, we will render the cards inside a for loop which runs for the length of the response of the array.</p>
 <p>Now look at the diagram below.</p>
-<p><img alt="Different Sources" src="../../static/images/4.png"></p>
+<p><img alt="Different Sources" src="images/4.png"></p>
 <p>We will be making separate API calls to get the from these two sources, and each of these API calls will take their own time, and will return their own data.</p>
 <p>There is a possibility that source-1 might return some data in 2 seconds while source might not return data at all even after 10+ seconds.</p>
 <p>But from our current appraoch, <code>isLoading</code> state governs the entirety of the component.</p>

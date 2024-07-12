@@ -49,13 +49,13 @@ I search for 'chicken wings' in the search input and click search.
 
 I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself. 
 
-![Component Wireframe](./n-states/1.png)
+![Component Wireframe](../../static/images/1.png)
 
 Here, we will make API calls to each source to request data for the search query when the user clicks the `search` button. 
 
 Lets understand the same with a diagram to register this as well. 
 
-![on clck event](./n-states/2.png)
+![on clck event](../../static/images/2.png)
 
 This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component. 
 
@@ -91,7 +91,7 @@ Pretty simple, so the general appraoch would be to create a boolean value called
 
 Now understand that this boolean value defines the state of the entire component. 
 
-![isLoading state ](./n-states/3.png)
+![isLoading state ](../../static/images/3.png)
 
 The general approach here would be to set isLoading to true whenever we request data from an API and once the fetch is complete, we set `isLoading` to false.
 
@@ -126,7 +126,7 @@ One the UI front, we will render the cards inside a for loop which runs for the 
 
 Now look at the diagram below. 
 
-![Different Sources](./n-states/4.png)
+![Different Sources](../../static/images/4.png)
 
 We will be making separate API calls to get the from these two sources, and each of these API calls will take their own time, and will return their own data.
 

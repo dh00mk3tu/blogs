@@ -1,4 +1,4 @@
-baseurl      = "localhost"
+baseurl      = "https://dh00mk3tu.github.io/blogs/"
 title        = "Anirudh Rath | dh00mk3tu"
 languageCode = "en-us"
 theme        = "hello-friend-ng"

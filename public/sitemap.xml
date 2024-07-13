@@ -2,41 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/</loc>
+    <loc>http://localhost:1313/blogs/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/api/</loc>
+    <loc>http://localhost:1313/blogs/tags/api/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/components/</loc>
+    <loc>http://localhost:1313/blogs/tags/components/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/n-states/</loc>
+    <loc>http://localhost:1313/blogs/posts/n-states/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/nuxt/</loc>
+    <loc>http://localhost:1313/blogs/tags/nuxt/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/pinia/</loc>
+    <loc>http://localhost:1313/blogs/tags/pinia/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/</loc>
+    <loc>http://localhost:1313/blogs/posts/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/redux/</loc>
+    <loc>http://localhost:1313/blogs/tags/redux/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/state-mangement/</loc>
+    <loc>http://localhost:1313/blogs/tags/state-mangement/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/</loc>
+    <loc>http://localhost:1313/blogs/tags/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/tags/typescript/</loc>
+    <loc>http://localhost:1313/blogs/tags/typescript/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
-    <loc>//localhost:1313/blog/</loc>
+    <loc>http://localhost:1313/blogs/blog/</loc>
   </url><url>
-    <loc>//localhost:1313/series/</loc>
+    <loc>http://localhost:1313/blogs/series/</loc>
   </url>
 </urlset>

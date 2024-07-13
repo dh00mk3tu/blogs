@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TypeScript on Anirudh Rath | dh00mk3tu</title>
-    <link>//localhost:1313/tags/typescript/</link>
+    <link>http://localhost:1313/blogs/tags/typescript/</link>
     <description>Recent content in TypeScript on Anirudh Rath | dh00mk3tu</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 30 Jun 2024 18:53:06 +0530</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blogs/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>N States</title>
-      <link>//localhost:1313/posts/n-states/</link>
+      <link>http://localhost:1313/blogs/posts/n-states/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/posts/n-states/</guid>
+      <guid>http://localhost:1313/blogs/posts/n-states/</guid>
       <description>The Premise We&amp;rsquo;ve come a long way since we wrote the first line of software. The premise of building software has always been simple; automate or solve a problem.&#xA;From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there&amp;rsquo;s one thing that has always remained constant while building software.&#xA;States A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory.</description>
     </item>
   </channel>

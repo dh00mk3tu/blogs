@@ -2,60 +2,60 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Anirudh Rath | dh00mk3tu</title>
-    <link>//localhost:1313/tags/</link>
+    <link>http://localhost:1313/blogs/tags/</link>
     <description>Recent content in Tags on Anirudh Rath | dh00mk3tu</description>
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
     <lastBuildDate>Sun, 30 Jun 2024 18:53:06 +0530</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blogs/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>API</title>
-      <link>//localhost:1313/tags/api/</link>
+      <link>http://localhost:1313/blogs/tags/api/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/tags/api/</guid>
+      <guid>http://localhost:1313/blogs/tags/api/</guid>
       <description></description>
     </item>
     <item>
       <title>Components</title>
-      <link>//localhost:1313/tags/components/</link>
+      <link>http://localhost:1313/blogs/tags/components/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/tags/components/</guid>
+      <guid>http://localhost:1313/blogs/tags/components/</guid>
       <description></description>
     </item>
     <item>
       <title>NUXT</title>
-      <link>//localhost:1313/tags/nuxt/</link>
+      <link>http://localhost:1313/blogs/tags/nuxt/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/tags/nuxt/</guid>
+      <guid>http://localhost:1313/blogs/tags/nuxt/</guid>
       <description></description>
     </item>
     <item>
       <title>Pinia</title>
-      <link>//localhost:1313/tags/pinia/</link>
+      <link>http://localhost:1313/blogs/tags/pinia/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/tags/pinia/</guid>
+      <guid>http://localhost:1313/blogs/tags/pinia/</guid>
       <description></description>
     </item>
     <item>
       <title>Redux</title>
-      <link>//localhost:1313/tags/redux/</link>
+      <link>http://localhost:1313/blogs/tags/redux/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/tags/redux/</guid>
+      <guid>http://localhost:1313/blogs/tags/redux/</guid>
       <description></description>
     </item>
     <item>
       <title>State Mangement</title>
-      <link>//localhost:1313/tags/state-mangement/</link>
+      <link>http://localhost:1313/blogs/tags/state-mangement/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/tags/state-mangement/</guid>
+      <guid>http://localhost:1313/blogs/tags/state-mangement/</guid>
       <description></description>
     </item>
     <item>
       <title>TypeScript</title>
-      <link>//localhost:1313/tags/typescript/</link>
+      <link>http://localhost:1313/blogs/tags/typescript/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
-      <guid>//localhost:1313/tags/typescript/</guid>
+      <guid>http://localhost:1313/blogs/tags/typescript/</guid>
       <description></description>
     </item>
   </channel>

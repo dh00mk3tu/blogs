@@ -49,7 +49,7 @@ I search for 'chicken wings' in the search input and click search.
 
 I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself. 
 
-  ![Component Wireframe](./component-wireframe.png)
+  ![Component Wireframe](/component-wireframe.png)
 
 
 content/posts/component-wireframe.png
@@ -57,7 +57,7 @@ Here, we will make API calls to each source to request data for the search query
 
 Lets understand the same with a diagram to register this as well. 
 
-![on clck event](/2.png)
+![On Click Event](/on-click-event.png)
 
 This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component. 
 
@@ -93,7 +93,7 @@ Pretty simple, so the general appraoch would be to create a boolean value called
 
 Now understand that this boolean value defines the state of the entire component. 
 
-![isLoading state ](../../static/images/3.png)
+![isLoading state ](/3.png)
 
 The general approach here would be to set isLoading to true whenever we request data from an API and once the fetch is complete, we set `isLoading` to false.
 
@@ -128,7 +128,7 @@ One the UI front, we will render the cards inside a for loop which runs for the 
 
 Now look at the diagram below. 
 
-![Different Sources](images/4.png)
+![Different Sources](/different-sources.png)
 
 We will be making separate API calls to get the from these two sources, and each of these API calls will take their own time, and will return their own data.
 
@@ -144,4 +144,236 @@ One might argue that we can simply make two different isLoading variables for ea
 
 > But if have _`n`_ number of sources will we make _`n`_ number of `isLoading` variables in our store to govern our differnent API calls?
 
+> Is this really maintainable in a production codebase where we might have 100+ different API endpoints, each requireing their own maintainable state?
 
+And countless more such question will pop up when you attempt to scale it further. Take an ecommerce website for example. There are so many components that are decoupled and function independently, decoupled from other components and serving their own specific use case. 
+
+From the search bar to search to search the products to an individual filter, each one of them will maintain their own states. For example, if a page has 10 different components and one of them is loading while the rest aren't; it's obvious that we will maintain the state of that component, in that component itself but again, since different developers have different approaches - each component's state will be handled differently. 
+
+It is also, ot necessary that each component will require a store of its own but might have to _handle_ a `success/failed` or a `loading` condition.
+
+This brings us to the final revalation before we start implementation of a simple, yet powerful architecture that all the developers can follow through.
+
+In our current scenario, we are working with Pinia, which is simmilar to Redux. The keyword that is used to describe these libraries is that they are `'State Management'` libraries.
+
+So what is the big revalation?
+
+**State Management != State Handling**
+
+The state management library we are using, be it Redux or Pinia, they provide us with a centralized method to deal with the local variables that compose the state of that particular component, service or process in general. 
+
+We are building an architecture to _"handle"_ our states, not _"manage"_ them.
+
+### The Solution 
+To implement the solution, I will use TypeScript, since we're using a framework that uses JS/TS; but the theory of this approach can be applied to any technical stack or language. 
+
+This is not a tutorial around JavaScript, NUXT or Pinia, so I will not attach screenshots or a step by step guide as to how to setup a store, and create variables and create a new project. 
+
+We will start by creating a new a TypeScript file that will define the state of our processes like so: 
+
+<!-- ![API State Types](/define-states.png) -->
+```ts
+export type State = 'success' | 'failed' | 'loading' | 'idle' 
+
+export interface APIState {
+	status: State,
+    message?: String,
+    data?: Object
+}
+```
+
+Now that we have defined our interface and a type, that our state will adhere to let us quickly understand it. 
+
+If you have worked with TypeScript before, this would have made sense to you already and how you might use it but do read it ahead. hehe.
+___
+Here, we have defined a state; 
+```ts
+export type State = 'success' | 'failed' | 'loading' | 'idle' 
+```
+
+Any variable that you create of type `State`, will only have either of the specified four values. i.e. 
+
+```ts
+'success' | 'failed' | 'loading' | 'idle'
+```
+
+Making use of this type is the interface that we have created 
+
+```ts
+export interface APIState {
+	status: State,   // <--- 
+    message?: string,
+    data?: object
+}
+``` 
+Now, let's go back to our problem statement that arose because of different sources of chicken wings. 
+
+In our Pinia Store, or if you have a different stack you can create this state where ever you would manage the `isLoading` state, we will create a new variable that will handle the state of a singlular chicken wing source. 
+
+```ts
+let chickenWingSource1 = <APIState> {
+
+}
+```
+
+In the above, now you have a schema available for this object that is imposed by the type `APIState`. The variable that we have just created `chickenWingSource1` can have the values defined by our interface with type safety. 
+
+This ensures that, when every developer in the team or if you're an individual even, you always follow the same structure to maintain the state.
+
+To make more sense to what we've done so far, let's complete the definition of this state and define a state for our other chicken wing source as well. 
+
+```ts
+let chickenWingSource1 : APIState = {
+  /**
+   * Type safe, using idle as an initial state when we have no
+   * data nor are we making any request
+   */
+  status: 'idle',
+
+  /**
+   * Optional. 
+   * message can be used to pass/store any relevant information 
+   * to the the UI or any other part of your app that will 
+   * consume this state.
+   * 
+   * Setting it as an empty string initally. 
+   */
+  message: '',
+
+  /**
+   * Optional.
+   * data can be used to pass the entire response of data of 
+   * state. You can extend the data and make it type safe
+   * by defining your response schema.
+   */
+  data: {}
+}
+```
+
+Once we define both our states, the result may look something like this: 
+```ts
+let chickenWingSource1: APIState = {
+  status: 'idle',
+  message: 'Source 1 - Idle',
+  data: {}
+};
+
+let chickenWingSource2: APIState = {
+  status: 'idle',
+  message: 'Source 2 - Idle',
+  data: {}
+};
+```
+
+Now, we know that these states will change according to the API response, so we will have to update the states conviniently. 
+
+For this, we can create a composable or a utility method that is available globally in our code base, it will look something like so: 
+
+```ts
+export const useStateModifier = (
+  stateName: APIState, 
+  newState: State, 
+  newMessage?: string, 
+  newData?: object,
+  ) => {
+    stateName.status = newState;
+    if(newMessage) {
+        stateName.message = newMessage;
+    } 
+
+    if(newData){
+        stateName.data = newData;
+    }
+}
+```
+
+The utility method that we have defined above takes the following arguments that are essentially the keys that we defined in our `APIState` interface, to ensure type safety and auto-complete. 
+
+1. `stateName: APIState` -> Pass the state object of type `APIState` which you want to update.
+
+2. `newState: State` -> Pass the state of type `State` to which you want to update your state to.
+
+3. `message: string` -> Optionally pass a message of type string for the state update. 
+
+4. `data: object` -> Optionally pass some data of type object to into your state. 
+
+Now lets make use of this utility method to conviniently update the state of our API calls to individually show the status of each chicken wings source.
+
+For this, lets write a dummy function that will make API call(s) to all the sources(endpoints) of chicken wings that we have store in an array.
+
+For the sake of simplicity, the function will make only one call at a time and we can wrap the function in a loop to make successsive API calls.
+
+Here's what the dummy function looks like: 
+
+```ts
+const getFoodDetailsFromDifferentSources = async (
+    stateName: APIState,
+    endpoint: string
+) => {
+    try {
+        useStateModifier(stateName, 'loading', 'Loading...');
+        stateName.data = await fetch('api.source1.com/wings');
+
+        // A very crude and rudimentary check on data.
+        // Don't hate me for this.
+        if (stateName.data) {
+            useStateModifier(
+              stateName, 
+              'success', 
+              'Fetched chichen wing data from source'
+            );
+        } else {
+            throw Error('Failed to fetch chicken wing data from source')
+        }
+    }
+    catch (e: any) {
+        useStateModifier(stateName, 'failed', e);
+    }
+}
+```
+
+
+As you can notice that we are updating the state using the `useStateModifier` method to update the state of our process according to the data that we get annd whether we are still fetching or not. 
+
+To make things even more convinient, I am storing the API response in the state variable itself in the data field. You can handle the response differently, that is completely up to you and the techstack that you are using. 
+
+Let's go back to the UI and see how we can elevate this architecture to show the correct UI to our user based on the individual process's state.
+
+### The UI - Again 
+
+Since this entire blog has been centered around NUXT and Pinia, I will write my component in NUXT 3 only. Though there is nothing strict about the UI, you can recreate it in any framework or stack, as long as you've understood the concept theoretically.
+
+```vue
+<template>
+  <div>
+    <div v-if="chickenWingsStore.chickenWingsSource1.status === 'loading'">
+      <p>Loading...</p>
+    </div>
+    <div v-else-if="chickenWingsStore.chickenWingsSource1.status === 'success'">
+      <p>Success! chicken wings loaded.</p>
+    </div>
+    <div v-else-if="chickenWingsStore.chickenWingsSource1.status === 'failed'">
+      <p>Error: {{ apiState.message }}</p>
+    </div>
+    <div v-else-if="chickenWingsStore.chickenWingsSource1.status === 'idle'">
+      <p>Idle. Waiting for chicken wings.</p>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+  const chickenWingsStore = useChickenWingsStore();
+</script>
+```
+
+
+Here in, I have created a component in NUXT 3, where I am using the Pinia store that we created to manage our API state which is now being handled by the state handling architecture that we have built. 
+
+Based on how and when we update the states according to our business logic - the UI will update on it's own because at any given moment it can only be in `success`, `failed`, `loading` or `idle` state. 
+
+That wraps up this post.
+I hope you enjoyed this little read. Please feel free to drop your suggestions, critiques and talk about it in general. 
+
+You can always reach out to me on Discord @dh00mk3tu
+
+Cheers to good engineering!

@@ -37,10 +37,11 @@ States A rudimentary definition of what a state is can be understood as the valu
 <p>Consider the following component for an online food ordering website.</p>
 <p>I search for &lsquo;chicken wings&rsquo; in the search input and click search.</p>
 <p>I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself.</p>
-<p><img alt="Component Wireframe" src="component-wireframe.png"></p>
-<p>Here, we will make API calls to each source to request data for the search query when the user clicks the <code>search</code> button.</p>
+<p><img alt="Component Wireframe" src="/blogs/posts/n-states/component-wireframe.png"></p>
+<p>content/posts/component-wireframe.png
+Here, we will make API calls to each source to request data for the search query when the user clicks the <code>search</code> button.</p>
 <p>Lets understand the same with a diagram to register this as well.</p>
-<p><img alt="on clck event" src="../../static/images/2.png"></p>
+<p><img alt="On Click Event" src="/blogs/posts/n-states/on-click-event.png"></p>
 <p>This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component.</p>
 <h3 id="the-internal-states">The Internal States</h3>
 <p>Let us understand the possible states we should/can handle to make the user experience better</p>
@@ -64,7 +65,7 @@ States A rudimentary definition of what a state is can be understood as the valu
 <p>Pretty simple, so the general appraoch would be to create a boolean value called:</p>
 <p><code>isLoading</code></p>
 <p>Now understand that this boolean value defines the state of the entire component.</p>
-<p><img alt="isLoading state " src="../../static/images/3.png"></p>
+<p><img alt="isLoading state " src="/3.png"></p>
 <p>The general approach here would be to set isLoading to true whenever we request data from an API and once the fetch is complete, we set <code>isLoading</code> to false.</p>
 <p>If we have the data, we render it to the UI - this is our <code>success</code> state otherwise we show an error or don&rsquo;t show the card in our UI at all - this is our <code>failed</code> state.</p>
 <p>Fundamentally this will work, but the caveat here is that it will work as long as there in one source of data.</p>
@@ -85,7 +86,7 @@ States A rudimentary definition of what a state is can be understood as the valu
 </span></span><span style="display:flex;"><span>]
 </span></span></code></pre></div><p>One the UI front, we will render the cards inside a for loop which runs for the length of the response of the array.</p>
 <p>Now look at the diagram below.</p>
-<p><img alt="Different Sources" src="images/4.png"></p>
+<p><img alt="Different Sources" src="/blogs/posts/n-states/different-sources.png"></p>
 <p>We will be making separate API calls to get the from these two sources, and each of these API calls will take their own time, and will return their own data.</p>
 <p>There is a possibility that source-1 might return some data in 2 seconds while source might not return data at all even after 10+ seconds.</p>
 <p>But from our current appraoch, <code>isLoading</code> state governs the entirety of the component.</p>
@@ -95,6 +96,179 @@ States A rudimentary definition of what a state is can be understood as the valu
 <blockquote>
 <p>But if have <em><code>n</code></em> number of sources will we make <em><code>n</code></em> number of <code>isLoading</code> variables in our store to govern our differnent API calls?</p>
 </blockquote>
+<blockquote>
+<p>Is this really maintainable in a production codebase where we might have 100+ different API endpoints, each requireing their own maintainable state?</p>
+</blockquote>
+<p>And countless more such question will pop up when you attempt to scale it further. Take an ecommerce website for example. There are so many components that are decoupled and function independently, decoupled from other components and serving their own specific use case.</p>
+<p>From the search bar to search to search the products to an individual filter, each one of them will maintain their own states. For example, if a page has 10 different components and one of them is loading while the rest aren&rsquo;t; it&rsquo;s obvious that we will maintain the state of that component, in that component itself but again, since different developers have different approaches - each component&rsquo;s state will be handled differently.</p>
+<p>It is also, ot necessary that each component will require a store of its own but might have to <em>handle</em> a <code>success/failed</code> or a <code>loading</code> condition.</p>
+<p>This brings us to the final revalation before we start implementation of a simple, yet powerful architecture that all the developers can follow through.</p>
+<p>In our current scenario, we are working with Pinia, which is simmilar to Redux. The keyword that is used to describe these libraries is that they are <code>'State Management'</code> libraries.</p>
+<p>So what is the big revalation?</p>
+<p><strong>State Management != State Handling</strong></p>
+<p>The state management library we are using, be it Redux or Pinia, they provide us with a centralized method to deal with the local variables that compose the state of that particular component, service or process in general.</p>
+<p>We are building an architecture to <em>&ldquo;handle&rdquo;</em> our states, not <em>&ldquo;manage&rdquo;</em> them.</p>
+<h3 id="the-solution">The Solution</h3>
+<p>To implement the solution, I will use TypeScript, since we&rsquo;re using a framework that uses JS/TS; but the theory of this approach can be applied to any technical stack or language.</p>
+<p>This is not a tutorial around JavaScript, NUXT or Pinia, so I will not attach screenshots or a step by step guide as to how to setup a store, and create variables and create a new project.</p>
+<p>We will start by creating a new a TypeScript file that will define the state of our processes like so:</p>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;success&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;failed&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;loading&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;idle&#39;</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">APIState</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">State</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">message?</span>: <span style="color:#66d9ef">String</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data?</span>: <span style="color:#66d9ef">Object</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now that we have defined our interface and a type, that our state will adhere to let us quickly understand it.</p>
+<p>If you have worked with TypeScript before, this would have made sense to you already and how you might use it but do read it ahead. hehe.</p>
+<hr>
+<p>Here, we have defined a state;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;success&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;failed&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;loading&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;idle&#39;</span> 
+</span></span></code></pre></div><p>Any variable that you create of type <code>State</code>, will only have either of the specified four values. i.e.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#e6db74">&#39;success&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;failed&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;loading&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;idle&#39;</span>
+</span></span></code></pre></div><p>Making use of this type is the interface that we have created</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">APIState</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">State</span>,   <span style="color:#75715e">// &lt;--- 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">message?</span>: <span style="color:#66d9ef">string</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data?</span>: <span style="color:#66d9ef">object</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now, let&rsquo;s go back to our problem statement that arose because of different sources of chicken wings.</p>
+<p>In our Pinia Store, or if you have a different stack you can create this state where ever you would manage the <code>isLoading</code> state, we will create a new variable that will handle the state of a singlular chicken wing source.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chickenWingSource1</span> <span style="color:#f92672">=</span> &lt;<span style="color:#f92672">APIState</span>&gt; {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In the above, now you have a schema available for this object that is imposed by the type <code>APIState</code>. The variable that we have just created <code>chickenWingSource1</code> can have the values defined by our interface with type safety.</p>
+<p>This ensures that, when every developer in the team or if you&rsquo;re an individual even, you always follow the same structure to maintain the state.</p>
+<p>To make more sense to what we&rsquo;ve done so far, let&rsquo;s complete the definition of this state and define a state for our other chicken wing source as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chickenWingSource1</span> : <span style="color:#66d9ef">APIState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Type safe, using idle as an initial state when we have no
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * data nor are we making any request
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;idle&#39;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Optional. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * message can be used to pass/store any relevant information 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * to the the UI or any other part of your app that will 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * consume this state.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Setting it as an empty string initally. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * Optional.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * data can be used to pass the entire response of data of 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * state. You can extend the data and make it type safe
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   * by defining your response schema.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Once we define both our states, the result may look something like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chickenWingSource1</span>: <span style="color:#66d9ef">APIState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;idle&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Source 1 - Idle&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chickenWingSource2</span>: <span style="color:#66d9ef">APIState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;idle&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Source 2 - Idle&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {}
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Now, we know that these states will change according to the API response, so we will have to update the states conviniently.</p>
+<p>For this, we can create a composable or a utility method that is available globally in our code base, it will look something like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useStateModifier</span> <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stateName</span>: <span style="color:#66d9ef">APIState</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">newState</span>: <span style="color:#66d9ef">State</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">newMessage?</span>: <span style="color:#66d9ef">string</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">newData?</span>: <span style="color:#66d9ef">object</span>,
+</span></span><span style="display:flex;"><span>  ) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stateName</span>.<span style="color:#a6e22e">status</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newState</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">newMessage</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">stateName</span>.<span style="color:#a6e22e">message</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newMessage</span>;
+</span></span><span style="display:flex;"><span>    } 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">newData</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">stateName</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The utility method that we have defined above takes the following arguments that are essentially the keys that we defined in our <code>APIState</code> interface, to ensure type safety and auto-complete.</p>
+<ol>
+<li>
+<p><code>stateName: APIState</code> -&gt; Pass the state object of type <code>APIState</code> which you want to update.</p>
+</li>
+<li>
+<p><code>newState: State</code> -&gt; Pass the state of type <code>State</code> to which you want to update your state to.</p>
+</li>
+<li>
+<p><code>message: string</code> -&gt; Optionally pass a message of type string for the state update.</p>
+</li>
+<li>
+<p><code>data: object</code> -&gt; Optionally pass some data of type object to into your state.</p>
+</li>
+</ol>
+<p>Now lets make use of this utility method to conviniently update the state of our API calls to individually show the status of each chicken wings source.</p>
+<p>For this, lets write a dummy function that will make API call(s) to all the sources(endpoints) of chicken wings that we have store in an array.</p>
+<p>For the sake of simplicity, the function will make only one call at a time and we can wrap the function in a loop to make successsive API calls.</p>
+<p>Here&rsquo;s what the dummy function looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getFoodDetailsFromDifferentSources</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stateName</span>: <span style="color:#66d9ef">APIState</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">useStateModifier</span>(<span style="color:#a6e22e">stateName</span>, <span style="color:#e6db74">&#39;loading&#39;</span>, <span style="color:#e6db74">&#39;Loading...&#39;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">stateName</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;api.source1.com/wings&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// A very crude and rudimentary check on data.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// Don&#39;t hate me for this.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">stateName</span>.<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">useStateModifier</span>(
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">stateName</span>, 
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;success&#39;</span>, 
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;Fetched chichen wing data from source&#39;</span>
+</span></span><span style="display:flex;"><span>            );
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> Error(<span style="color:#e6db74">&#39;Failed to fetch chicken wing data from source&#39;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>: <span style="color:#66d9ef">any</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">useStateModifier</span>(<span style="color:#a6e22e">stateName</span>, <span style="color:#e6db74">&#39;failed&#39;</span>, <span style="color:#a6e22e">e</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>As you can notice that we are updating the state using the <code>useStateModifier</code> method to update the state of our process according to the data that we get annd whether we are still fetching or not.</p>
+<p>To make things even more convinient, I am storing the API response in the state variable itself in the data field. You can handle the response differently, that is completely up to you and the techstack that you are using.</p>
+<p>Let&rsquo;s go back to the UI and see how we can elevate this architecture to show the correct UI to our user based on the individual process&rsquo;s state.</p>
+<h3 id="the-ui---again">The UI - Again</h3>
+<p>Since this entire blog has been centered around NUXT and Pinia, I will write my component in NUXT 3 only. Though there is nothing strict about the UI, you can recreate it in any framework or stack, as long as you&rsquo;ve understood the concept theoretically.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vue" data-lang="vue"><span style="display:flex;"><span>&lt;<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#f92672">v-if</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;chickenWingsStore.chickenWingsSource1.status === &#39;loading&#39;&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-else-if</span><span style="color:#960050;background-color:#1e0010">=&#34;</span><span style="color:#a6e22e">chickenWingsStore.chickenWingsSource1.status</span> <span style="color:#960050;background-color:#1e0010">===</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">success</span><span style="color:#960050;background-color:#1e0010">&#39;&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">Success</span><span style="color:#f92672">!</span> <span style="color:#a6e22e">chicken</span> <span style="color:#a6e22e">wings</span> <span style="color:#a6e22e">loaded</span>.&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-else-if</span><span style="color:#960050;background-color:#1e0010">=&#34;</span><span style="color:#a6e22e">chickenWingsStore.chickenWingsSource1.status</span> <span style="color:#960050;background-color:#1e0010">===</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">failed</span><span style="color:#960050;background-color:#1e0010">&#39;&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;Error<span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">apiState</span>.<span style="color:#a6e22e">message</span> }}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">v</span><span style="color:#f92672">-else-if</span><span style="color:#960050;background-color:#1e0010">=&#34;</span><span style="color:#a6e22e">chickenWingsStore.chickenWingsSource1.status</span> <span style="color:#960050;background-color:#1e0010">===</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">idle</span><span style="color:#960050;background-color:#1e0010">&#39;&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">Idle</span>. <span style="color:#a6e22e">Waiting</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">chicken</span> <span style="color:#a6e22e">wings</span>.&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">setup</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ts&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">chickenWingsStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useChickenWingsStore</span>();
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><p>Here in, I have created a component in NUXT 3, where I am using the Pinia store that we created to manage our API state which is now being handled by the state handling architecture that we have built.</p>
+<p>Based on how and when we update the states according to our business logic - the UI will update on it&rsquo;s own because at any given moment it can only be in <code>success</code>, <code>failed</code>, <code>loading</code> or <code>idle</code> state.</p>
+<p>That wraps up this post.
+I hope you enjoyed this little read. Please feel free to drop your suggestions, critiques and talk about it in general.</p>
+<p>You can always reach out to me on Discord @dh00mk3tu</p>
+<p>Cheers to good engineering!</p>
 ]]></content>
         </item>
         

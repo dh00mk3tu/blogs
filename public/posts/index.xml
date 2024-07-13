@@ -15,19 +15,20 @@
             <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
             
             <guid>http://localhost:1313/blogs/posts/n-states/</guid>
-            <description>The Premise We&amp;rsquo;ve come a long way since we wrote the first line of software. The premise of building software has always been simple; automate or solve a problem.
-From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there&amp;rsquo;s one thing that has always remained constant while building software.
-States A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory.</description>
+            <description>The Premise We&amp;rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.
+From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.
+States A rudimentary definition of what a state is can be understood as the value of variables at any given point in time which is stored in the memory.</description>
             <content type="html"><![CDATA[<h2 id="the-premise">The Premise</h2>
-<p>We&rsquo;ve come a long way since we wrote the first line of software. The premise of building software has always been simple; automate or solve a problem.</p>
-<p>From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there&rsquo;s one thing that has always remained constant while building software.</p>
+<p>We&rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.</p>
+<p>From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>States
-</span></span></code></pre></div><p>A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory. This essentially means that the value of these variables represent the application&rsquo;s <code>state</code>  at the time of observation.</p>
-<p>The concept of states laid the foundation of modern software development and as the time progressed,  technologies came and went - the concept of states stayed with us, more or less the same.</p>
-<p>Fast forward to today, we have state managers that help us persist and maintain our application&rsquo;s state in a much more convinient and an abstracted way. The scope of this blog will involve <code>Pinia</code>.</p>
-<p>Pinia is a state manager for NUXT, and it functions the same way as Redux. We create a global store which can be consumed by the components that actually need that data at point of the application life cycle, and saves us from the prop-drilling hell.</p>
+</span></span></code></pre></div><p>A rudimentary definition of what a state is can be understood as the value of variables at any given point in time which is stored in the memory. This essentially means that the value of these variables represent the application&rsquo;s <code>state</code> at the time of observation.</p>
+<p>The concept of states laid the foundation of modern software development, and as time progressed, technologies came and went - the concept of states stayed with us, more or less the same.</p>
+<p>Fast forward to today, we have state managers that help us persist and maintain our application&rsquo;s state in a much more convenient and in an abstracted way.</p>
+<p>The scope of this blog will involve <code>Pinia</code>.
+Pinia is a state manager for NUXT, and it functions the same way as Redux. We create a global store which can be consumed by the components that need that data at any point of the application&rsquo;s life cycle, and saves us from the prop-drilling hell.</p>
 <p>But I recently came across a really interesting issue which I had to resolve and I realized that maintaining states with a <code>store</code> isn&rsquo;t enough.</p>
-<p>There needs to be a structure on how we maintain these states, and this brought me to the following conclusion</p>
+<p>There needs to be a structure on how we handle these states, and this brought me to the following conclusion</p>
 <blockquote>
 <p><em>&lsquo;There needs to be an internal state handler, which will handle the states declared in my store&rsquo;</em></p>
 </blockquote>
@@ -36,13 +37,12 @@ States A rudimentary definition of what a state is can be understood as the valu
 <h2 id="the-problem">The Problem</h2>
 <p>Consider the following component for an online food ordering website.</p>
 <p>I search for &lsquo;chicken wings&rsquo; in the search input and click search.</p>
-<p>I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself.</p>
+<p>Now, I expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself.</p>
 <p><img alt="Component Wireframe" src="/blogs/posts/n-states/component-wireframe.png"></p>
-<p>content/posts/component-wireframe.png
-Here, we will make API calls to each source to request data for the search query when the user clicks the <code>search</code> button.</p>
-<p>Lets understand the same with a diagram to register this as well.</p>
+<p>Here, we will make API calls to each source to request data for the search query when the user clicks the <code>search</code> button.</p>
+<p>Lets understand the same with a diagram to register this visually as well.</p>
 <p><img alt="On Click Event" src="/blogs/posts/n-states/on-click-event.png"></p>
-<p>This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component.</p>
+<p>This is where the problem begins to trickle down, but to understand the problem, let&rsquo;s and handle the state for this component.</p>
 <h3 id="the-internal-states">The Internal States</h3>
 <p>Let us understand the possible states we should/can handle to make the user experience better</p>
 <h4 id="loading-state">Loading State</h4>
@@ -55,7 +55,7 @@ Here, we will make API calls to each source to request data for the search query
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h4 id="failed-state">Failed State</h4>
 <p>Since we&rsquo;re handling a success state, it is obvious that we need to handle a failed state as well.</p>
-<p>We&rsquo;re making an network request to an external source, and it is possible that the the request might break in the future or not return anything at all.</p>
+<p>We&rsquo;re making a network request to an external source, and it is possible that the request might break in the future or not return anything at all.</p>
 <p>So in a nutshell we have to maintain three states:</p>
 <ul>
 <li>Loading</li>
@@ -66,7 +66,7 @@ Here, we will make API calls to each source to request data for the search query
 <p><code>isLoading</code></p>
 <p>Now understand that this boolean value defines the state of the entire component.</p>
 <p><img alt="isLoading state " src="/3.png"></p>
-<p>The general approach here would be to set isLoading to true whenever we request data from an API and once the fetch is complete, we set <code>isLoading</code> to false.</p>
+<p>The general approach here would be to set <code>isLoading</code> to true whenever we request data from an API and once the fetching of data is complete, we set <code>isLoading</code> to false.</p>
 <p>If we have the data, we render it to the UI - this is our <code>success</code> state otherwise we show an error or don&rsquo;t show the card in our UI at all - this is our <code>failed</code> state.</p>
 <p>Fundamentally this will work, but the caveat here is that it will work as long as there in one source of data.</p>
 <p><em>This is our problem</em></p>
@@ -84,27 +84,27 @@ Here, we will make API calls to each source to request data for the search query
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">price</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;$10&#39;</span>
 </span></span><span style="display:flex;"><span>  }
 </span></span><span style="display:flex;"><span>]
-</span></span></code></pre></div><p>One the UI front, we will render the cards inside a for loop which runs for the length of the response of the array.</p>
+</span></span></code></pre></div><p>On the UI front, we will render the cards inside a for loop which runs for the length of the response of the array.</p>
 <p>Now look at the diagram below.</p>
 <p><img alt="Different Sources" src="/blogs/posts/n-states/different-sources.png"></p>
-<p>We will be making separate API calls to get the from these two sources, and each of these API calls will take their own time, and will return their own data.</p>
-<p>There is a possibility that source-1 might return some data in 2 seconds while source might not return data at all even after 10+ seconds.</p>
+<p>We will be making separate API calls to get data the from these two sources, and each of these API calls will take their own time and return their own data.</p>
+<p>There is a possibility that source-1 might return some data in 2 seconds while source-2 might not return data at all even after 10+ seconds.</p>
 <p>But from our current appraoch, <code>isLoading</code> state governs the entirety of the component.</p>
-<p>Each API call we make will update the same <code>isLoading</code> variable and, if any of the APIs take, let&rsquo;s say maximum of T amount of time, our component will be visible to us after that time even though we had data which we could show to the user from other sources.</p>
+<p>Each API call we make will update the same <code>isLoading</code> variable and if any of the APIs take, let&rsquo;s say, a maximum of <code>T</code> amount of time, our component will be visible to us after that time even though we had data which we could show to the user from other sources.</p>
 <p>This leads to bad user experience.</p>
-<p>One might argue that we can simply make two different isLoading variables for each of the sources we are making a call.</p>
+<p>One might argue that we can simply make two different isLoading variables for each of the sources we are making a call to.</p>
 <blockquote>
 <p>But if have <em><code>n</code></em> number of sources will we make <em><code>n</code></em> number of <code>isLoading</code> variables in our store to govern our differnent API calls?</p>
 </blockquote>
 <blockquote>
-<p>Is this really maintainable in a production codebase where we might have 100+ different API endpoints, each requireing their own maintainable state?</p>
+<p>Is this really maintainable in a production codebase where we might have 100+ different API endpoints, each requiring their own maintainable state?</p>
 </blockquote>
 <p>And countless more such question will pop up when you attempt to scale it further. Take an ecommerce website for example. There are so many components that are decoupled and function independently, decoupled from other components and serving their own specific use case.</p>
-<p>From the search bar to search to search the products to an individual filter, each one of them will maintain their own states. For example, if a page has 10 different components and one of them is loading while the rest aren&rsquo;t; it&rsquo;s obvious that we will maintain the state of that component, in that component itself but again, since different developers have different approaches - each component&rsquo;s state will be handled differently.</p>
-<p>It is also, ot necessary that each component will require a store of its own but might have to <em>handle</em> a <code>success/failed</code> or a <code>loading</code> condition.</p>
-<p>This brings us to the final revalation before we start implementation of a simple, yet powerful architecture that all the developers can follow through.</p>
-<p>In our current scenario, we are working with Pinia, which is simmilar to Redux. The keyword that is used to describe these libraries is that they are <code>'State Management'</code> libraries.</p>
-<p>So what is the big revalation?</p>
+<p>From the search bar to search the products to an individual filters on the result page, each one of them will maintain their own state(s). For example, if a page has 10 different components and one of them is loading while the rest aren&rsquo;t; it&rsquo;s obvious that we will maintain the state of that component within that component itself but again, since different developers have different approaches - each component&rsquo;s state will be handled differently.</p>
+<p>It is also not necessary that each component will require a store of its own but might have to <em>handle</em> a <code>success/failed</code> or a <code>loading</code> condition.</p>
+<p>This brings us to the final revelation before we start implementation of a simple yet powerful architecture that all the developers can follow through.</p>
+<p>In our current scenario, we are working with Pinia, which is similar to Redux. The keyword that is used to describe these libraries is that they are <code>'State Management'</code> libraries.</p>
+<p>So what is the big revelation?</p>
 <p><strong>State Management != State Handling</strong></p>
 <p>The state management library we are using, be it Redux or Pinia, they provide us with a centralized method to deal with the local variables that compose the state of that particular component, service or process in general.</p>
 <p>We are building an architecture to <em>&ldquo;handle&rdquo;</em> our states, not <em>&ldquo;manage&rdquo;</em> them.</p>
@@ -120,26 +120,27 @@ Here, we will make API calls to each source to request data for the search query
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">message?</span>: <span style="color:#66d9ef">String</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data?</span>: <span style="color:#66d9ef">Object</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Now that we have defined our interface and a type, that our state will adhere to let us quickly understand it.</p>
+</span></span></code></pre></div><p>Now that we have defined our interface and a type that our state will adhere to, let us quickly understand it.</p>
 <p>If you have worked with TypeScript before, this would have made sense to you already and how you might use it but do read it ahead. hehe.</p>
 <hr>
-<p>Here, we have defined a state;</p>
+<p>Here, we have defined a type called <code>State</code>;</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;success&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;failed&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;loading&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;idle&#39;</span> 
 </span></span></code></pre></div><p>Any variable that you create of type <code>State</code>, will only have either of the specified four values. i.e.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#e6db74">&#39;success&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;failed&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;loading&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;idle&#39;</span>
-</span></span></code></pre></div><p>Making use of this type is the interface that we have created</p>
+</span></span></code></pre></div><p>Making use of this type, we have created an interface called <code>APIState</code>.
+We will understand this interface in depth as we move further with the implementation of our state handler.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">APIState</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">status</span>: <span style="color:#66d9ef">State</span>,   <span style="color:#75715e">// &lt;--- 
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">message?</span>: <span style="color:#66d9ef">string</span>,
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data?</span>: <span style="color:#66d9ef">object</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Now, let&rsquo;s go back to our problem statement that arose because of different sources of chicken wings.</p>
-<p>In our Pinia Store, or if you have a different stack you can create this state where ever you would manage the <code>isLoading</code> state, we will create a new variable that will handle the state of a singlular chicken wing source.</p>
+<p>In our Pinia Store, or if you have a different stack you can create this state where ever you would manage the <code>isLoading</code> state. We will create a new variable that will handle the state of a singular chicken wing source like so:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chickenWingSource1</span> <span style="color:#f92672">=</span> &lt;<span style="color:#f92672">APIState</span>&gt; {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>In the above, now you have a schema available for this object that is imposed by the type <code>APIState</code>. The variable that we have just created <code>chickenWingSource1</code> can have the values defined by our interface with type safety.</p>
-<p>This ensures that, when every developer in the team or if you&rsquo;re an individual even, you always follow the same structure to maintain the state.</p>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>In the above example we have a schema available for this object that is imposed by the type <code>APIState</code>. The variable that we have just created <code>chickenWingSource1</code> can have the values defined by our interface with type safety.</p>
+<p>This ensures that every developer in the team or if you&rsquo;re an individual even, everyone always follows the same structure to maintain the state.</p>
 <p>To make more sense to what we&rsquo;ve done so far, let&rsquo;s complete the definition of this state and define a state for our other chicken wing source as well.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chickenWingSource1</span> : <span style="color:#66d9ef">APIState</span> <span style="color:#f92672">=</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#75715e">/**
@@ -166,7 +167,7 @@ Here, we will make API calls to each source to request data for the search query
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">   */</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {}
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>Once we define both our states, the result may look something like this:</p>
+</span></span></code></pre></div><p>Once we define both of our states, the result may look something like this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">chickenWingSource1</span>: <span style="color:#66d9ef">APIState</span> <span style="color:#f92672">=</span> {
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">status</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;idle&#39;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Source 1 - Idle&#39;</span>,
@@ -178,8 +179,8 @@ Here, we will make API calls to each source to request data for the search query
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">message</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Source 2 - Idle&#39;</span>,
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {}
 </span></span><span style="display:flex;"><span>};
-</span></span></code></pre></div><p>Now, we know that these states will change according to the API response, so we will have to update the states conviniently.</p>
-<p>For this, we can create a composable or a utility method that is available globally in our code base, it will look something like so:</p>
+</span></span></code></pre></div><p>Now, we know that these states will change according to the API response, so we will have to update the states accordingly.</p>
+<p>For this, we can create a composable or a utility method that is available globally in our code base and it will look something like this:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useStateModifier</span> <span style="color:#f92672">=</span> (
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">stateName</span>: <span style="color:#66d9ef">APIState</span>, 
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">newState</span>: <span style="color:#66d9ef">State</span>, 
@@ -201,17 +202,20 @@ Here, we will make API calls to each source to request data for the search query
 <p><code>stateName: APIState</code> -&gt; Pass the state object of type <code>APIState</code> which you want to update.</p>
 </li>
 <li>
-<p><code>newState: State</code> -&gt; Pass the state of type <code>State</code> to which you want to update your state to.</p>
+<p><code>newState: State</code> -&gt; Pass the new state of type <code>State</code> to which you want to update your current state to.</p>
 </li>
 <li>
-<p><code>message: string</code> -&gt; Optionally pass a message of type string for the state update.</p>
+<p><code>message: string</code> -&gt; Optionally pass a message of type <code>string</code> for the state update.</p>
 </li>
 <li>
-<p><code>data: object</code> -&gt; Optionally pass some data of type object to into your state.</p>
+<p><code>data: object</code> -&gt; Optionally pass some data of type <code>object</code> to into your state.</p>
 </li>
 </ol>
-<p>Now lets make use of this utility method to conviniently update the state of our API calls to individually show the status of each chicken wings source.</p>
-<p>For this, lets write a dummy function that will make API call(s) to all the sources(endpoints) of chicken wings that we have store in an array.</p>
+<p>This method takes the state object which you are using to handle the API/process and also takes the new state to which you want to update it to, as required functional arguments.
+The other two arguments are optional.</p>
+<p>The method first updates the state to the value that you have passed, and after that the method checks if it has received any value for the parameter message and data and updates them accordingly.</p>
+<p>Now let&rsquo;s make use of this utility method to conveniently update the state of our API calls to individually show the status of each chicken wings source.</p>
+<p>For this, I will write a dummy function that will make API call(s) to all the sources(endpoints) of chicken wings.</p>
 <p>For the sake of simplicity, the function will make only one call at a time and we can wrap the function in a loop to make successsive API calls.</p>
 <p>Here&rsquo;s what the dummy function looks like:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getFoodDetailsFromDifferentSources</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (
@@ -238,9 +242,9 @@ Here, we will make API calls to each source to request data for the search query
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">useStateModifier</span>(<span style="color:#a6e22e">stateName</span>, <span style="color:#e6db74">&#39;failed&#39;</span>, <span style="color:#a6e22e">e</span>);
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>As you can notice that we are updating the state using the <code>useStateModifier</code> method to update the state of our process according to the data that we get annd whether we are still fetching or not.</p>
-<p>To make things even more convinient, I am storing the API response in the state variable itself in the data field. You can handle the response differently, that is completely up to you and the techstack that you are using.</p>
-<p>Let&rsquo;s go back to the UI and see how we can elevate this architecture to show the correct UI to our user based on the individual process&rsquo;s state.</p>
+</span></span></code></pre></div><p>As you can notice that we are updating the state using the <code>useStateModifier</code> method to update the state of our process according to the data that we get and whether we are still fetching the data or not.</p>
+<p>To make things even more convenient, I am storing the API response in the state variable itself in the data field. You can handle the response differently, that is completely up to you and the tech stack that you are using.</p>
+<p>Let&rsquo;s go back to the UI and see how we can elevate this architecture to show the correct UI to our user based on the state.</p>
 <h3 id="the-ui---again">The UI - Again</h3>
 <p>Since this entire blog has been centered around NUXT and Pinia, I will write my component in NUXT 3 only. Though there is nothing strict about the UI, you can recreate it in any framework or stack, as long as you&rsquo;ve understood the concept theoretically.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vue" data-lang="vue"><span style="display:flex;"><span>&lt;<span style="color:#f92672">template</span>&gt;

@@ -57,7 +57,7 @@ Here, we will make API calls to each source to request data for the search query
 
 Lets understand the same with a diagram to register this as well. 
 
-![on clck event](./n-states/2.png)
+![on clck event](/2.png)
 
 This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component. 
 

@@ -40,7 +40,7 @@ paginate     = 10
     readOtherPosts = "Read other posts"
 
   [languages.en.params]
-    subtitle  = "A simple theme for Hugo"
+    subtitle  = "Blogs"
 
     [languages.en.params.logo]
       logoText = "dk3tm"

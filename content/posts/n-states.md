@@ -49,14 +49,15 @@ I search for 'chicken wings' in the search input and click search.
 
 I now expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself. 
 
-  ![Component Wireframe](component-wireframe.png)
+  ![Component Wireframe](./component-wireframe.png)
 
 
+content/posts/component-wireframe.png
 Here, we will make API calls to each source to request data for the search query when the user clicks the `search` button. 
 
 Lets understand the same with a diagram to register this as well. 
 
-![on clck event](../../static/images/2.png)
+![on clck event](./n-states/2.png)
 
 This is where the problem begins to trickle down, but to understand the problem, lets and handle the state for this component. 
 

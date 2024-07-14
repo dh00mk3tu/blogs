@@ -92,7 +92,7 @@ Pretty simple, so the general appraoch would be to create a boolean value called
 
 Now understand that this boolean value defines the state of the entire component. 
 
-![isLoading state ](/3.png)
+![isLoading state ](/loading-state.png)
 
 The general approach here would be to set `isLoading` to true whenever we request data from an API and once the fetching of data is complete, we set `isLoading` to false.
 

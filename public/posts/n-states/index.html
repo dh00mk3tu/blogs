@@ -213,7 +213,7 @@ Pinia is a state manager for NUXT, and it functions the same way as Redux. We cr
 <p>Pretty simple, so the general appraoch would be to create a boolean value called:</p>
 <p><code>isLoading</code></p>
 <p>Now understand that this boolean value defines the state of the entire component.</p>
-<p><img alt="isLoading state " src="/3.png"></p>
+<p><img alt="isLoading state " src="/blogs/posts/n-states/loading-state.png"></p>
 <p>The general approach here would be to set <code>isLoading</code> to true whenever we request data from an API and once the fetching of data is complete, we set <code>isLoading</code> to false.</p>
 <p>If we have the data, we render it to the UI - this is our <code>success</code> state otherwise we show an error or don&rsquo;t show the card in our UI at all - this is our <code>failed</code> state.</p>
 <p>Fundamentally this will work, but the caveat here is that it will work as long as there in one source of data.</p>

@@ -7,8 +7,64 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 30 Jun 2024 18:53:06 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 11 Aug 2024 23:45:06 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/blogs/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Culture</title>
+      <link>http://localhost:1313/blogs/tags/culture/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/culture/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Evolution</title>
+      <link>http://localhost:1313/blogs/tags/evolution/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/evolution/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>General</title>
+      <link>http://localhost:1313/blogs/tags/general/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/general/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Life</title>
+      <link>http://localhost:1313/blogs/tags/life/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/life/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Philosophy</title>
+      <link>http://localhost:1313/blogs/tags/philosophy/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/philosophy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Politics</title>
+      <link>http://localhost:1313/blogs/tags/politics/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/politics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Religion</title>
+      <link>http://localhost:1313/blogs/tags/religion/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/religion/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Science</title>
+      <link>http://localhost:1313/blogs/tags/science/</link>
+      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/tags/science/</guid>
+      <description></description>
+    </item>
     <item>
       <title>API</title>
       <link>http://localhost:1313/blogs/tags/api/</link>

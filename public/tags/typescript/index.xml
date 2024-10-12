@@ -14,7 +14,7 @@
       <link>http://localhost:1313/blogs/posts/n-states/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
       <guid>http://localhost:1313/blogs/posts/n-states/</guid>
-      <description>The Premise We&amp;rsquo;ve come a long way since we wrote the first line of software. The premise of building software has always been simple; automate or solve a problem.&#xA;From creating straight forward inventory software that ran locally on machines to cloud infrastructure, there&amp;rsquo;s one thing that has always remained constant while building software.&#xA;States A rudimentary definition of what a state is can be understood as the value of variables at any given point in time that is stored in the memory.</description>
+      <description>The Premise We&amp;rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.&#xA;From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.&#xA;States A rudimentary definition of what a state is can be understood as the value of variables at any given point in time which is stored in the memory.</description>
     </item>
   </channel>
 </rss>

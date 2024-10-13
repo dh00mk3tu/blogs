@@ -16,9 +16,10 @@ tags:
 
 ## A Powerful Composable for API Requests
 
-### GitHub
+### Project Links
+[GitHub](https://github.com/dh00mk3tu/useNetStack)
 
-You can find the project [here](https://github.com/dh00mk3tu/useNetStack)
+[Documentation](https://use-netstack.nuxt.space/documentation)
 
 ---
 

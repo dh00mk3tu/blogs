@@ -30,11 +30,11 @@ Let's discuss what's there to offer and you'll know whether you need this or not
 I wanted to build a logic, or perhaps a wrapper around my API calls that will cancel a previous request and process a new if the payload and the request endpoint is the same. Let's understand the `override` logic.
 
 
-## Understanding the `override` Flag in `useNetStack`
+#### Understanding the `override` Flag in `useNetStack`
 
 The `override` flag in `useNetStack` provides control over how API requests should behave when a similar request is already in progress. This flag is especially useful in scenarios where multiple requests might be triggered for the same endpoint, and you need to determine whether to wait for the existing request to complete or start a new one. Here's how the `override` flag can be used to manage both **asynchronous** and **synchronous** API calls:
 
-## 1. Asynchronous Requests (`async: true`)
+### 1. Asynchronous Requests (`async: true`)
 
 When you make an asynchronous API request (using the `async` option), the ongoing request doesn't block the subsequent code execution, and the application can continue its operation. If another request to the same endpoint is initiated, the `override` flag determines whether the new request should cancel the ongoing one or let it continue.
 
@@ -46,7 +46,7 @@ When you make an asynchronous API request (using the `async` option), the ongoin
   - If an existing request is already in progress, the new request will be **ignored**, and the original request will continue running.
   - This helps prevent redundant requests and waits for the first request's completion before initiating another one.
 
-### Example of Asynchronous Behavior
+#### Example of Asynchronous Behavior
 ```ts
 executeCall({
   apiRequest: {
@@ -58,7 +58,7 @@ executeCall({
 });
 ```
 
-## 2. Synchronous Requests (`async: false`)
+### 2. Synchronous Requests (`async: false`)
 
 For synchronous API requests, the application waits for the current request to complete before proceeding with the next steps. The `override` flag ensures proper behavior in this case too:
 
@@ -69,7 +69,7 @@ For synchronous API requests, the application waits for the current request to c
   - The request will not be made if there’s already one in progress, ensuring that the same request is not made multiple times before completion.
   - This ensures efficient API usage and avoids sending unnecessary network requests when one is already underway.
 
-### Example of Synchronous Behavior
+#### Example of Synchronous Behavior
 ```ts
 executeCall({
   apiRequest: {
@@ -81,13 +81,13 @@ executeCall({
 });
 ```
 
-## Use Case Scenarios
+### Use Case Scenarios
 
 - **Real-time data fetching**: When building real-time applications or features like search suggestions, you might want to use `override: true` with `async: true` to ensure that new data replaces outdated or stale requests. For example, in a search bar that triggers API requests as the user types, you might override the previous requests to avoid processing older results.
 
 - **Non-urgent data**: For data that doesn't need to be updated frequently, such as fetching a user profile or initial page load, `override: false` ensures that redundant requests are avoided, saving bandwidth and preventing unnecessary server hits.
 
-## Summary
+### TL;DR
 - The `override` flag, when paired with `async` requests, gives flexibility to either cancel an ongoing request and fetch new data or reuse the in-progress request.
 - In synchronous mode, `override` controls whether to block subsequent calls or proceed with a new request once the ongoing one is completed.
 

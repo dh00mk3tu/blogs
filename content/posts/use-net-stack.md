@@ -28,9 +28,18 @@ This composable helps to provide you with that structure.
 
 I'm calling it a composable in general and not just in the terms of NUXT. It is a utility method for you that provides you a with very granular and precise control over your network calls.
 
-Let's discuss what's there to offer and you'll know whether you need this or not by looking at this quick example which is followed by a list of features and documentation.override
+I wanted to build a logic, or perhaps a wrapper around my API calls that will cancel a previous request and process a new one if the payload and the request endpoint aern't the same of even if they are same and we want to request new data.
 
-I wanted to build a logic, or perhaps a wrapper around my API calls that will cancel a previous request and process a new if the payload and the request endpoint is the same. Let's understand the `override` logic.
+I wanted to have this control in my hands. Each request gets into a stack, and if it's an async it's executed in parallel to the other requests; else if it's a sync reuest it get's checked if we should override it or not. 
+
+I also wanted to cache the results, and take the headache of caching results from the hands of the developer, and let the developer focus on the fact that for long do they want to cache the results for, if they want to.
+
+This will be a lot more technical and lot less theoretical, unlike my last blog. 
+
+THough, again this project has been built with NUXT; but I plan to abstract it out as a normal JS/TS package adn test it out witht other frameworks as well. If you wish to help in this area or to contribute to this project - you're most welcome.  
+
+
+Let's understand the `override` logic.
 
 ---
 

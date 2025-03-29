@@ -7,21 +7,21 @@
     <generator>Hugo</generator>
     <language>en</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sun, 11 Aug 2024 23:45:06 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jun 2024 18:53:06 +0530</lastBuildDate>
     <atom:link href="http://localhost:1313/blogs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Religion, Politics &amp; Science</title>
-      <link>http://localhost:1313/blogs/posts/religion-politics-science/</link>
-      <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
-      <guid>http://localhost:1313/blogs/posts/religion-politics-science/</guid>
-      <description>Hi </description>
-    </item>
     <item>
       <title>N States</title>
       <link>http://localhost:1313/blogs/posts/n-states/</link>
       <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
       <guid>http://localhost:1313/blogs/posts/n-states/</guid>
-      <description>The Premise We&amp;rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.&#xA;From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.&#xA;States A rudimentary definition of what a state is can be understood as the value of variables at any given point in time which is stored in the memory.</description>
+      <description>&lt;h2 id=&#34;the-premise&#34;&gt;The Premise&lt;/h2&gt;&#xA;&lt;p&gt;We&amp;rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.&lt;/p&gt;&#xA;&lt;p&gt;From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;States&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A rudimentary definition of what a state is can be understood as the value of variables at any given point in time which is stored in the memory. This essentially means that the value of these variables represent the application&amp;rsquo;s &lt;code&gt;state&lt;/code&gt; at the time of observation.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The useNetStack() composable</title>
+      <link>http://localhost:1313/blogs/posts/use-net-stack/</link>
+      <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
+      <guid>http://localhost:1313/blogs/posts/use-net-stack/</guid>
+      <description>&lt;h2 id=&#34;a-powerful-composable-for-api-requests&#34;&gt;A Powerful Composable for API Requests&lt;/h2&gt;&#xA;&lt;h3 id=&#34;project-links&#34;&gt;Project Links&lt;/h3&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dh00mk3tu/useNetStack&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://use-netstack.nuxt.space/documentation&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;Jumping onto any new technology, framework or library tto build apps etc is a challenge in itself. After a certain while, you hit the blocker that how do we make API calls in this environment; because naturally you have to consume data from the network at some point. Eventually you end up watching tutorials and reading documentation, but there is still no structure to it.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

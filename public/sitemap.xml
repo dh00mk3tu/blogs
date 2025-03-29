@@ -3,40 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/blogs/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/culture/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/evolution/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/general/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/life/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/philosophy/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/politics/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/posts/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/religion/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/posts/religion-politics-science/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/science/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/blogs/tags/</loc>
-    <lastmod>2024-08-11T23:45:06+05:30</lastmod>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/blogs/tags/api/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
@@ -53,10 +20,19 @@
     <loc>http://localhost:1313/blogs/tags/pinia/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
+    <loc>http://localhost:1313/blogs/posts/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
     <loc>http://localhost:1313/blogs/tags/redux/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/blogs/tags/state-mangement/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blogs/tags/</loc>
+    <lastmod>2024-06-30T18:53:06+05:30</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/blogs/posts/use-net-stack/</loc>
     <lastmod>2024-06-30T18:53:06+05:30</lastmod>
   </url><url>
     <loc>http://localhost:1313/blogs/tags/typescript/</loc>

@@ -6,19 +6,8 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sun, 11 Aug 2024 23:45:06 +0530</lastBuildDate>
+        <lastBuildDate>Sun, 30 Jun 2024 18:53:06 +0530</lastBuildDate>
         <atom:link href="http://localhost:1313/blogs/posts/index.xml" rel="self" type="application/rss+xml" />
-        
-        <item>
-            <title>Religion, Politics &amp; Science</title>
-            <link>http://localhost:1313/blogs/posts/religion-politics-science/</link>
-            <pubDate>Sun, 11 Aug 2024 23:45:06 +0530</pubDate>
-            
-            <guid>http://localhost:1313/blogs/posts/religion-politics-science/</guid>
-            <description>Hi </description>
-            <content type="html"><![CDATA[<h2 id="hi">Hi</h2>
-]]></content>
-        </item>
         
         <item>
             <title>N States</title>
@@ -26,9 +15,11 @@
             <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
             
             <guid>http://localhost:1313/blogs/posts/n-states/</guid>
-            <description>The Premise We&amp;rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.
-From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.
-States A rudimentary definition of what a state is can be understood as the value of variables at any given point in time which is stored in the memory.</description>
+            <description>&lt;h2 id=&#34;the-premise&#34;&gt;The Premise&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.&lt;/p&gt;
+&lt;p&gt;From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;States
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A rudimentary definition of what a state is can be understood as the value of variables at any given point in time which is stored in the memory. This essentially means that the value of these variables represent the application&amp;rsquo;s &lt;code&gt;state&lt;/code&gt; at the time of observation.&lt;/p&gt;</description>
             <content type="html"><![CDATA[<h2 id="the-premise">The Premise</h2>
 <p>We&rsquo;ve come a long way since writing the first line of software. The premise of building software has always been simple: automate or solve a problem.</p>
 <p>From creating straightforward inventory software that ran locally on machines to cloud infrastructure, one thing has always remained constant in software development.</p>
@@ -41,18 +32,17 @@ Pinia is a state manager for NUXT, and it functions the same way as Redux. We cr
 <p>But I recently came across a really interesting issue which I had to resolve and I realized that maintaining states with a <code>store</code> isn&rsquo;t enough.</p>
 <p>There needs to be a structure on how we handle these states, and this brought me to the following conclusion</p>
 <blockquote>
-<p><em>&lsquo;There needs to be an internal state handler, which will handle the states declared in my store&rsquo;</em></p>
-</blockquote>
+<p><em>&lsquo;There needs to be an internal state handler, which will handle the states declared in my store&rsquo;</em></p></blockquote>
 <h2 id="state-management">State Management</h2>
 <p>I love the concept of having a global store, which I can access from any where, and so far I haven&rsquo;t really had any problems with this architecture until on Thursday, June 27th 2024.</p>
 <h2 id="the-problem">The Problem</h2>
 <p>Consider the following component for an online food ordering website.</p>
 <p>I search for &lsquo;chicken wings&rsquo; in the search input and click search.</p>
 <p>Now, I expect results for chicken wings, and for this example lets assume that the data will come from different sources, and each source will have a card for itself.</p>
-<p><img alt="Component Wireframe" src="/blogs/posts/n-states/component-wireframe.png"></p>
+<p><img src="/blogs/posts/n-states/component-wireframe.png" alt="Component Wireframe"></p>
 <p>Here, we will make API calls to each source to request data for the search query when the user clicks the <code>search</code> button.</p>
 <p>Lets understand the same with a diagram to register this visually as well.</p>
-<p><img alt="On Click Event" src="/blogs/posts/n-states/on-click-event.png"></p>
+<p><img src="/blogs/posts/n-states/on-click-event.png" alt="On Click Event"></p>
 <p>This is where the problem begins to trickle down, but to understand the problem, let&rsquo;s and handle the state for this component.</p>
 <h3 id="the-internal-states">The Internal States</h3>
 <p>Let us understand the possible states we should/can handle to make the user experience better</p>
@@ -76,7 +66,7 @@ Pinia is a state manager for NUXT, and it functions the same way as Redux. We cr
 <p>Pretty simple, so the general appraoch would be to create a boolean value called:</p>
 <p><code>isLoading</code></p>
 <p>Now understand that this boolean value defines the state of the entire component.</p>
-<p><img alt="isLoading state " src="/blogs/posts/n-states/loading-state.png"></p>
+<p><img src="/blogs/posts/n-states/loading-state.png" alt="isLoading state "></p>
 <p>The general approach here would be to set <code>isLoading</code> to true whenever we request data from an API and once the fetching of data is complete, we set <code>isLoading</code> to false.</p>
 <p>If we have the data, we render it to the UI - this is our <code>success</code> state otherwise we show an error or don&rsquo;t show the card in our UI at all - this is our <code>failed</code> state.</p>
 <p>Fundamentally this will work, but the caveat here is that it will work as long as there in one source of data.</p>
@@ -97,7 +87,7 @@ Pinia is a state manager for NUXT, and it functions the same way as Redux. We cr
 </span></span><span style="display:flex;"><span>]
 </span></span></code></pre></div><p>On the UI front, we will render the cards inside a for loop which runs for the length of the response of the array.</p>
 <p>Now look at the diagram below.</p>
-<p><img alt="Different Sources" src="/blogs/posts/n-states/different-sources.png"></p>
+<p><img src="/blogs/posts/n-states/different-sources.png" alt="Different Sources"></p>
 <p>We will be making separate API calls to get data the from these two sources, and each of these API calls will take their own time and return their own data.</p>
 <p>There is a possibility that source-1 might return some data in 2 seconds while source-2 might not return data at all even after 10+ seconds.</p>
 <p>But from our current appraoch, <code>isLoading</code> state governs the entirety of the component.</p>
@@ -105,11 +95,9 @@ Pinia is a state manager for NUXT, and it functions the same way as Redux. We cr
 <p>This leads to bad user experience.</p>
 <p>One might argue that we can simply make two different isLoading variables for each of the sources we are making a call to.</p>
 <blockquote>
-<p>But if have <em><code>n</code></em> number of sources will we make <em><code>n</code></em> number of <code>isLoading</code> variables in our store to govern our differnent API calls?</p>
-</blockquote>
+<p>But if have <em><code>n</code></em> number of sources will we make <em><code>n</code></em> number of <code>isLoading</code> variables in our store to govern our differnent API calls?</p></blockquote>
 <blockquote>
-<p>Is this really maintainable in a production codebase where we might have 100+ different API endpoints, each requiring their own maintainable state?</p>
-</blockquote>
+<p>Is this really maintainable in a production codebase where we might have 100+ different API endpoints, each requiring their own maintainable state?</p></blockquote>
 <p>And countless more such question will pop up when you attempt to scale it further. Take an ecommerce website for example. There are so many components that are decoupled and function independently, decoupled from other components and serving their own specific use case.</p>
 <p>From the search bar to search the products to an individual filters on the result page, each one of them will maintain their own state(s). For example, if a page has 10 different components and one of them is loading while the rest aren&rsquo;t; it&rsquo;s obvious that we will maintain the state of that component within that component itself but again, since different developers have different approaches - each component&rsquo;s state will be handled differently.</p>
 <p>It is also not necessary that each component will require a store of its own but might have to <em>handle</em> a <code>success/failed</code> or a <code>loading</code> condition.</p>
@@ -123,7 +111,6 @@ Pinia is a state manager for NUXT, and it functions the same way as Redux. We cr
 <p>To implement the solution, I will use TypeScript, since we&rsquo;re using a framework that uses JS/TS; but the theory of this approach can be applied to any technical stack or language.</p>
 <p>This is not a tutorial around JavaScript, NUXT or Pinia, so I will not attach screenshots or a step by step guide as to how to setup a store, and create variables and create a new project.</p>
 <p>We will start by creating a new a TypeScript file that will define the state of our processes like so:</p>
-<!-- raw HTML omitted -->
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;success&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;failed&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;loading&#39;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;idle&#39;</span> 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">APIState</span> {
@@ -284,6 +271,357 @@ The other two arguments are optional.</p>
 I hope you enjoyed this little read. Please feel free to drop your suggestions, critiques and talk about it in general.</p>
 <p>You can always reach out to me on Discord @dh00mk3tu</p>
 <p>Cheers to good engineering!</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>The useNetFlux</title>
+            <link>http://localhost:1313/blogs/posts/use-net-stack/</link>
+            <pubDate>Sun, 30 Jun 2024 18:53:06 +0530</pubDate>
+            
+            <guid>http://localhost:1313/blogs/posts/use-net-stack/</guid>
+            <description>&lt;h2 id=&#34;a-powerful-utility-library-for-managing-api-requests&#34;&gt;A powerful utility library for managing API requests&lt;/h2&gt;
+&lt;h3 id=&#34;project-links&#34;&gt;Project Links&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://netflux.nuxt.space/&#34;&gt;API Playground&lt;/a&gt;
+&lt;a href=&#34;https://github.com/dh00mk3tu/usenetflux&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Jumping onto any new technology, framework or library to build apps etc is a challenge in itself. After a certain while, you hit the blocker that how do we make API calls in this environment; because naturally you have to consume data from the network at some point. Eventually you end up watching tutorials and reading documentation, but there is still no structure to it.&lt;/p&gt;</description>
+            <content type="html"><![CDATA[<h2 id="a-powerful-utility-library-for-managing-api-requests">A powerful utility library for managing API requests</h2>
+<h3 id="project-links">Project Links</h3>
+<p><a href="https://netflux.nuxt.space/">API Playground</a>
+<a href="https://github.com/dh00mk3tu/usenetflux">GitHub</a></p>
+<hr>
+<p>Jumping onto any new technology, framework or library to build apps etc is a challenge in itself. After a certain while, you hit the blocker that how do we make API calls in this environment; because naturally you have to consume data from the network at some point. Eventually you end up watching tutorials and reading documentation, but there is still no structure to it.</p>
+<p>This composable helps to provide you with that structure.</p>
+<p>I&rsquo;m calling it a composable in general and not just in the terms of NUXT. It is a utility method for you that provides you a with very granular and precise control over your network calls.</p>
+<p>I wanted to build a logic, or perhaps a wrapper around my API calls that will cancel a previous request and process a new one if the payload and the request endpoint aern&rsquo;t the same of even if they are same and we want to request new data.</p>
+<p>I wanted to have this control in my hands. Each request gets into a stack, and if it&rsquo;s an async it&rsquo;s executed in parallel to the other requests; else if it&rsquo;s a sync reuest it get&rsquo;s checked if we should override it or not.</p>
+<p>I also wanted to cache the results, and take the headache of caching results from the hands of the developer, and let the developer focus on the fact that for long do they want to cache the results for, if they want to.</p>
+<p>This will be a lot more technical and lot less theoretical, unlike my last blog.</p>
+<p>Though, again this project has been built with NUXT; but I plan to abstract it out as a normal JS/TS package adn test it out witht other frameworks as well. If you wish to help in this area or to contribute to this project - you&rsquo;re most welcome.</p>
+<p>useNetFlux also comes with a playground where you can test out the API calls and see how they behave. You can find the playground <a href="https://netflux.nuxt.space/">here</a>.</p>
+<p>Let&rsquo;s understand the <code>override</code> logic.</p>
+<hr>
+<p><em>Understanding the <code>override</code> Flag in <code>useNetflux</code></em></p>
+<p>The <code>override</code> flag in <code>useNetflux</code> provides control over how API requests; how should they behave when a similar request is already in progress. This flag is especially useful in scenarios where multiple requests might be triggered for the same endpoint, and you need to determine whether to wait for the existing request to complete or start a new one. Here&rsquo;s how the <code>override</code> flag can be used to manage both <strong>asynchronous</strong> and <strong>synchronous</strong> API calls:</p>
+<h3 id="1-asynchronous-requests">1. Asynchronous Requests</h3>
+<p>When you make an asynchronous API request (using the <code>async</code> option), the ongoing request doesn&rsquo;t block the subsequent code execution, and the application can continue its operation. If another request to the same endpoint is initiated, the <code>override</code> flag determines whether the new request should cancel the ongoing one or let it continue.</p>
+<ul>
+<li>
+<p><strong>With <code>override: true</code>:</strong></p>
+<ul>
+<li>If a request is already being made to the same endpoint, it will <strong>cancel the existing request</strong> and make a new one.</li>
+<li>This is useful when you don&rsquo;t want to wait for the existing request to finish and want to get fresh data immediately.</li>
+</ul>
+</li>
+<li>
+<p><strong>With <code>override: false</code>:</strong></p>
+<ul>
+<li>If an existing request is already in progress, the new request will be <strong>ignored</strong>, and the original request will continue running.</li>
+<li>This helps prevent redundant requests and waits for the first request&rsquo;s completion before initiating another one.</li>
+</ul>
+</li>
+</ul>
+<h4 id="example-of-asynchronous-behavior">Example of Asynchronous Behavior</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/data&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">async</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// Non-blocking request
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">override</span>: <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// Cancel the ongoing request and make a new one
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h3 id="2-synchronous-requests">2. Synchronous Requests</h3>
+<p>For synchronous API requests, the application waits for the current request to complete before proceeding with the next steps. The <code>override</code> flag ensures proper behavior in this case too:</p>
+<ul>
+<li>
+<p><strong>With <code>override: true</code>:</strong></p>
+<ul>
+<li>Any ongoing request will be aborted, and the new one will take precedence. This is useful when you need the latest data immediately and are willing to sacrifice the in-progress request.</li>
+</ul>
+</li>
+<li>
+<p><strong>With <code>override: false</code>:</strong></p>
+<ul>
+<li>The request will not be made if there’s already one in progress, ensuring that the same request is not made multiple times before completion.</li>
+<li>This ensures efficient API usage and avoids sending unnecessary network requests when one is already underway.</li>
+</ul>
+</li>
+</ul>
+<h4 id="example-of-synchronous-behavior">Example of Synchronous Behavior</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/data&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">async</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// Block the execution until request completes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">override</span>: <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// Wait for the ongoing request to finish
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h3 id="use-case-scenarios">Use Case Scenarios</h3>
+<ul>
+<li>
+<p><strong>Real-time data fetching</strong>: When building real-time applications or features like search suggestions, you might want to use <code>override: true</code> with <code>async: true</code> to ensure that new data replaces outdated or stale requests. For example, in a search bar that triggers API requests as the user types, you might override the previous requests to avoid processing older results.</p>
+</li>
+<li>
+<p><strong>Non-urgent data</strong>: For data that doesn&rsquo;t need to be updated frequently, such as fetching a user profile or initial page load, <code>override: false</code> ensures that redundant requests are avoided, saving bandwidth and preventing unnecessary server hits.</p>
+</li>
+</ul>
+<h3 id="tldr">TL;DR</h3>
+<ul>
+<li>The <code>override</code> flag, when paired with <code>async</code> requests, gives flexibility to either cancel an ongoing request and fetch new data or reuse the in-progress request.</li>
+<li>In synchronous mode, <code>override</code> controls whether to block subsequent calls or proceed with a new request once the ongoing one is completed.</li>
+</ul>
+<p>This flag is essential for optimizing API behavior in scenarios where multiple requests to the same endpoint could be triggered and helps manage network resources efficiently.</p>
+<h2 id="key-features">Key Features</h2>
+<h3 id="1-retries">1. <strong>Retries</strong></h3>
+<p>Automatically retry failed requests based on configurable settings.</p>
+<ul>
+<li>
+<p><strong>Global Default</strong>: 3 retries</p>
+</li>
+<li>
+<p><strong>Customizable</strong>: Set retries and retry delay per request</p>
+</li>
+<li>
+<p><strong>Example</strong>:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/data&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retries</span>: <span style="color:#66d9ef">5</span>, <span style="color:#75715e">// Retry up to 5 times
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retryDelay</span>: <span style="color:#66d9ef">2000</span>, <span style="color:#75715e">// 2-second delay between retries
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h3 id="2-timeouts">2. <strong>Timeouts</strong></h3>
+<p>Set time limits on API requests to avoid indefinite waiting.</p>
+<ul>
+<li>
+<p><strong>Global Default</strong>: 5 seconds</p>
+</li>
+<li>
+<p><strong>Customizable</strong>: Timeout can be set per request</p>
+</li>
+<li>
+<p><strong>Example</strong>:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/create&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">10000</span>, <span style="color:#75715e">// 10-second timeout
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  },
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><h3 id="3-caching">3. <strong>Caching</strong></h3>
+<p>Cache responses for a specified duration to minimize redundant network calls.</p>
+<ul>
+<li>
+<p><strong>Global Default</strong>: Cached for 1 minute</p>
+</li>
+<li>
+<p><strong>Customizable</strong>: Set <code>cacheDuration</code> per request</p>
+</li>
+<li>
+<p><strong>Skip Cache</strong>: Force bypassing cache by setting <code>skipCache: true</code></p>
+</li>
+<li>
+<p><strong>Example</strong>:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/data&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cacheDuration</span>: <span style="color:#66d9ef">120000</span>, <span style="color:#75715e">// Cache for 2 minutes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">skipCache</span>: <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// Enable cache by default
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h3 id="4-request-cancellation">4. <strong>Request Cancellation</strong></h3>
+<p>Abort ongoing requests using an <code>AbortController</code>.</p>
+<ul>
+<li>
+<p><strong>Auto-Generated</strong>: Timeout automatically triggers request cancellation</p>
+</li>
+<li>
+<p><strong>Custom</strong>: Pass your own <code>AbortController</code> to manually cancel requests</p>
+</li>
+<li>
+<p><strong>Example</strong>:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">controller</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/data&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cancellationToken</span>: <span style="color:#66d9ef">controller</span>,
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Cancel the request after 2 seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">controller</span>.<span style="color:#a6e22e">abort</span>(), <span style="color:#ae81ff">2000</span>);
+</span></span></code></pre></div><h3 id="5-global-configuration">5. <strong>Global Configuration</strong></h3>
+<p>Define global defaults for retries, timeouts, caching, and more.</p>
+<ul>
+<li>
+<p><strong>Flexible</strong>: Update default settings for all requests</p>
+</li>
+<li>
+<p><strong>Example</strong>:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">updateGlobalConfig</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retries</span>: <span style="color:#66d9ef">5</span>, <span style="color:#75715e">// Set global retries to 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">15000</span>, <span style="color:#75715e">// Set global timeout to 15 seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">logging</span>: <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// Enable logging globally
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h3 id="6-logging">6. <strong>Logging</strong></h3>
+<p>Get real-time logging information about request behavior.</p>
+<ul>
+<li>
+<p><strong>Global Setting</strong>: Enable or disable logging in the global configuration</p>
+</li>
+<li>
+<p><strong>Log Levels</strong>: <code>info</code>, <code>warn</code>, <code>error</code></p>
+</li>
+<li>
+<p><strong>Example</strong> log output:</p>
+</li>
+</ul>
+<pre tabindex="0"><code class="language-log" data-lang="log">
+[INFO]: Starting API call { url: &#39;https://api.example.com/data&#39;, method: &#39;GET&#39; }
+
+[WARN]: Retrying... Attempt 2 { endpoint: &#39;https://api.example.com/data&#39; }
+
+[ERROR]: API call failed { endpoint: &#39;https://api.example.com/data&#39;, error: &#39;Timeout&#39; }
+</code></pre><h2 id="methods">Methods</h2>
+<h3 id="executecall"><code>executeCall</code></h3>
+<p>The core method to make API requests with enhanced features like retries, caching, timeouts, and logging.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retries</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retryDelay</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">timeout</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cacheDuration</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">60000</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">skipCache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cancellationToken</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">async</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">override</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>}<span style="color:#f92672">:</span> <span style="color:#a6e22e">ExecuteCallParams</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">any</span>&gt;;
+</span></span></code></pre></div><h3 id="updateglobalconfig"><code>updateGlobalConfig</code></h3>
+<p>Modify global configurations for all requests.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">updateGlobalConfig</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">newConfig</span>: <span style="color:#66d9ef">Partial</span>&lt;<span style="color:#f92672">typeof</span> <span style="color:#a6e22e">defaultConfig.value</span>&gt;
+</span></span><span style="display:flex;"><span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span></code></pre></div><h3 id="example-updating-global-config">Example: Updating Global Config</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">updateGlobalConfig</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retries</span>: <span style="color:#66d9ef">4</span>, <span style="color:#75715e">// Update retries globally to 4
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cacheDuration</span>: <span style="color:#66d9ef">300000</span>, <span style="color:#75715e">// Cache for 5 minutes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h2 id="api-request-structure">API Request Structure</h2>
+<p><code>apiRequest</code> object defines the structure of the API call, which includes the HTTP method, endpoint, headers, and body.</p>
+<h3 id="structure">Structure:</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ApiRequest</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;POST&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;PUT&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;DELETE&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;PATCH&#34;</span>; <span style="color:#75715e">// HTTP method
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>; <span style="color:#75715e">// API endpoint
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">headers?</span>: <span style="color:#66d9ef">Record</span>&lt;<span style="color:#f92672">string</span>, <span style="color:#a6e22e">string</span>&gt;; <span style="color:#75715e">// Optional headers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">queryParams?</span>: <span style="color:#66d9ef">Record</span>&lt;<span style="color:#f92672">string</span>, <span style="color:#a6e22e">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span>&gt;; <span style="color:#75715e">// Optional query parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">body?</span>: <span style="color:#66d9ef">any</span>; <span style="color:#75715e">// Optional body for POST, PUT, etc.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="example">Example:</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">apiRequest</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/create&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Authorization</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Bearer token&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;New Item&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;This is a new item&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h2 id="example-usage">Example Usage</h2>
+<h3 id="simple-get-request">Simple GET Request</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/data&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><h3 id="post-request-with-retries-and-timeout">POST Request with Retries and Timeout</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/create&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;New Item&#34;</span> },
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retries</span>: <span style="color:#66d9ef">5</span>, <span style="color:#75715e">// Retry up to 5 times
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retryDelay</span>: <span style="color:#66d9ef">2000</span>, <span style="color:#75715e">// 2-second delay between retries
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">timeout</span>: <span style="color:#66d9ef">10000</span>, <span style="color:#75715e">// 10-second timeout
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h3 id="request-with-custom-cancellation-token">Request with Custom Cancellation Token</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">controller</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">executeCall</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">apiRequest</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">endpoint</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;https://api.example.com/data&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cancellationToken</span>: <span style="color:#66d9ef">controller</span>, <span style="color:#75715e">// Use a custom token to cancel the request
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Cancel the request after 2 seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setTimeout</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">controller</span>.<span style="color:#a6e22e">abort</span>(), <span style="color:#ae81ff">2000</span>);
+</span></span></code></pre></div><h3 id="updating-global-configuration">Updating Global Configuration</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#a6e22e">updateGlobalConfig</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">retries</span>: <span style="color:#66d9ef">2</span>, <span style="color:#75715e">// Update global retries to 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">logging</span>: <span style="color:#66d9ef">true</span>, <span style="color:#75715e">// Enable logging globally
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><h2 id="github">GitHub</h2>
+<p>You can find the project <a href="https://github.com/dh00mk3tu/usenetflux">here</a></p>
 ]]></content>
         </item>
         

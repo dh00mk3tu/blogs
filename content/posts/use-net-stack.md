@@ -1,5 +1,5 @@
 ---
-title: "The useNetStack() composable"
+title: "The useNetFlux"
 date: 2024-06-30T18:53:06+05:30
 draft: false
 toc: false
@@ -14,16 +14,15 @@ tags:
   - Components
 ---
 
-## A Powerful Composable for API Requests
+## A powerful utility library for managing API requests
 
 ### Project Links
-[GitHub](https://github.com/dh00mk3tu/useNetStack)
-
-[Documentation](https://use-netstack.nuxt.space/documentation)
+[API Playground](https://netflux.nuxt.space/)
+[GitHub](https://github.com/dh00mk3tu/usenetflux)
 
 ---
 
-Jumping onto any new technology, framework or library tto build apps etc is a challenge in itself. After a certain while, you hit the blocker that how do we make API calls in this environment; because naturally you have to consume data from the network at some point. Eventually you end up watching tutorials and reading documentation, but there is still no structure to it.
+Jumping onto any new technology, framework or library to build apps etc is a challenge in itself. After a certain while, you hit the blocker that how do we make API calls in this environment; because naturally you have to consume data from the network at some point. Eventually you end up watching tutorials and reading documentation, but there is still no structure to it.
 
 This composable helps to provide you with that structure.
 
@@ -37,16 +36,18 @@ I also wanted to cache the results, and take the headache of caching results fro
 
 This will be a lot more technical and lot less theoretical, unlike my last blog. 
 
-THough, again this project has been built with NUXT; but I plan to abstract it out as a normal JS/TS package adn test it out witht other frameworks as well. If you wish to help in this area or to contribute to this project - you're most welcome.  
+Though, again this project has been built with NUXT; but I plan to abstract it out as a normal JS/TS package adn test it out witht other frameworks as well. If you wish to help in this area or to contribute to this project - you're most welcome.  
+
+useNetFlux also comes with a playground where you can test out the API calls and see how they behave. You can find the playground [here](https://netflux.nuxt.space/).
 
 
 Let's understand the `override` logic.
 
 ---
 
-_Understanding the `override` Flag in `useNetStack`_
+_Understanding the `override` Flag in `useNetflux`_
 
-The `override` flag in `useNetStack` provides control over how API requests; how should they behave when a similar request is already in progress. This flag is especially useful in scenarios where multiple requests might be triggered for the same endpoint, and you need to determine whether to wait for the existing request to complete or start a new one. Here's how the `override` flag can be used to manage both **asynchronous** and **synchronous** API calls:
+The `override` flag in `useNetflux` provides control over how API requests; how should they behave when a similar request is already in progress. This flag is especially useful in scenarios where multiple requests might be triggered for the same endpoint, and you need to determine whether to wait for the existing request to complete or start a new one. Here's how the `override` flag can be used to manage both **asynchronous** and **synchronous** API calls:
 
 ### 1. Asynchronous Requests
 
@@ -406,4 +407,4 @@ updateGlobalConfig({
 
 ## GitHub
 
-You can find the project [here](https://github.com/dh00mk3tu/useNetStack)
+You can find the project [here](https://github.com/dh00mk3tu/usenetflux)
